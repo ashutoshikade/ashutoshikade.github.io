@@ -93,7 +93,7 @@
                 <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
                 <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
                 <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
-                <form name="sentMessage" id="contactForm" novalidate>
+                <!-- <form name="sentMessage" id="contactForm" novalidate>
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Name</label>
@@ -129,6 +129,18 @@
                             <button type="submit" class="btn btn-default">Send</button>
                         </div>
                     </div>
+                </form> -->
+                <form id="fs-frm" name="simple-contact-form" accept-charset="utf-8" action="https://formspree.io/f/{form_id}" method="post">
+                    <fieldset id="fs-frm-inputs">
+                      <label for="full-name">Your Name</label>
+                      <input type="text" name="name" id="full-name" placeholder="Name" required="">
+                      <label for="email-address">Email Address</label>
+                      <input type="email" name="_replyto" id="email-address" placeholder="youremail@yourdomain.com" required="">
+                      <label for="message">Message</label>
+                      <textarea rows="5" name="message" id="message" placeholder="Your message here..." required=""></textarea>
+                      <input type="hidden" name="_subject" id="email-subject" value="Contact Form Submission">
+                        </fieldset>
+                    <input type="submit" value="Submit">
                 </form>
             </div>
         </div>
