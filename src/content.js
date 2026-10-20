@@ -3,15 +3,12 @@
 // constant.py from the Streamlit app: edit the text here and every page
 // that uses it updates. Settings (social handles, keys, ...) live in
 // site.config.js at the root of the repo.
+//
+// Your bio and photo live in profile/ instead (bio.txt and photos/), so you
+// can change them from your phone without touching any code.
 // =============================================================================
 
 export const profile = {
-  // One string per paragraph.
-  brief: [
-    "I am Ashutosh Ekade. I am currently enrolled in the Master of Financial Engineering program at UCLA Anderson. I graduated from IIT Kharagpur in 2019 after which I worked as a Machine Learning Engineer for over four years, developing ML solutions for a Fintech at scale. My core competencies include Python, Machine Learning Research & Development, NLP and Quantitative Finance.",
-    "I have worked on developing and maintaining AI products such as Recommender Systems, Information Retrieval, Question-Answering Systems and Chatbots. Check out my projects section to know more!",
-    "I firmly believe that Generative AI will transform Finance, and I'm passionate about playing an active role in this disruptive change.",
-  ],
   location: "Los Angeles, California",
   interests: "Quantitative Research, Machine Learning, Data Science",
   skills: [

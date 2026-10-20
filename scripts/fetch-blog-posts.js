@@ -23,6 +23,12 @@ async function fetchPosts() {
     signal: AbortSignal.timeout(20_000),
   });
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  // Substack redirects a feed URL to your profile page until the publication
+  // exists. That isn't an outage, so just show no feed posts for now.
+  if (!response.headers.get("content-type")?.includes("xml")) {
+    console.warn(`${feedUrl} isn't an RSS feed yet (has the publication been created?)`);
+    return [];
+  }
 
   const parser = new XMLParser({ ignoreAttributes: false, parseTagValue: false, htmlEntities: true });
   const feed = parser.parse(await response.text());

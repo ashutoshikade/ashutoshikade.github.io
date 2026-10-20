@@ -20,7 +20,8 @@ function siteMetaTags() {
         meta({ property: "og:title", content: name }),
         meta({ property: "og:description", content: description }),
         meta({ property: "og:url", content: url }),
-        meta({ property: "og:image", content: `${url}/og-image.jpg` }),
+        // Made from your newest profile photo by scripts/prepare-profile-photo.js.
+        meta({ property: "og:image", content: `${url}/generated/og-image.jpg` }),
         meta({ name: "twitter:card", content: "summary_large_image" }),
       ];
     },
