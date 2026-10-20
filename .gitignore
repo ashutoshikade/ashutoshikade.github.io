@@ -1,0 +1,21 @@
+# Dependencies and build output
+node_modules
+dist
+*.local
+
+# Written by scripts/fetch-blog-posts.js on every dev/build run
+src/generated/
+
+# The old Streamlit app (kept locally for reference only)
+streamlit_portfolio/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor and OS files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.sw?

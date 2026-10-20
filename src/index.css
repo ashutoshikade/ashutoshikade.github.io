@@ -1,0 +1,544 @@
+/* ==========================================================================
+   Theme: colours and sizes used across the site, matching the dark theme
+   the Streamlit version had. Change a value here and every page follows.
+   ========================================================================== */
+
+:root {
+  --bg: #0e1117;
+  --bg-sidebar: #262730;
+  --bg-input: #1a1c24;
+  --text: #fafafa;
+  --text-muted: rgba(250, 250, 250, 0.65);
+  --border: rgba(250, 250, 250, 0.2);
+  --red: #ff4b4b;
+  --blue: #4da3ff;
+  --green: #04aa6d;
+  --radius: 0.5rem;
+  --sidebar-width: 16rem;
+  --font: "Source Sans 3", "Source Sans Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+a {
+  color: var(--blue);
+}
+
+h1,
+h2 {
+  margin: 0 0 1rem;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2.25rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.text-blue {
+  color: var(--blue);
+}
+
+/* Hidden on screen but still in the page (used for the contact form's spam trap). */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Layout: sidebar on the left, page content on the right
+   ========================================================================== */
+
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: var(--sidebar-width);
+  padding: 2rem 1.25rem;
+  overflow-y: auto;
+  background: var(--bg-sidebar);
+}
+
+.sidebar__name {
+  margin: 0 0.75rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav__link {
+  display: block;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.nav__link:hover {
+  background: rgba(250, 250, 250, 0.08);
+  color: var(--text);
+}
+
+/* NavLink adds the "active" class to the link of the page you're on. */
+.nav__link.active {
+  background: rgba(250, 250, 250, 0.15);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.social {
+  display: flex;
+  gap: 1rem;
+  margin: auto 0 0;
+  padding: 0 0.75rem;
+  list-style: none;
+  font-size: 1.35rem;
+}
+
+.social a {
+  color: var(--text);
+}
+
+.social a:hover {
+  color: var(--red);
+}
+
+.content {
+  margin-left: var(--sidebar-width);
+  padding: 4rem 3rem 5rem;
+}
+
+.content__inner {
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+/* The top bar and the dimmed backdrop are only used on small screens. */
+.topbar,
+.backdrop {
+  display: none;
+}
+
+.icon-button {
+  display: inline-flex;
+  padding: 0.4rem;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font-size: 1.35rem;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  /* Above the backdrop (25) so the close button stays bright, below the sidebar (30). */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 27;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    background: var(--bg-sidebar);
+  }
+
+  .topbar__name {
+    font-weight: 700;
+  }
+
+  /* The sidebar slides in from the left when the menu button is pressed. */
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+  }
+
+  .sidebar--open {
+    transform: none;
+  }
+
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 25;
+    display: block;
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  .content {
+    margin-left: 0;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  h1 {
+    font-size: 1.9rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+}
+
+/* ==========================================================================
+   Shared pieces
+   ========================================================================== */
+
+/* Heading with a coloured line underneath (see SectionHeader.jsx). */
+.section-header {
+  position: relative;
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.section-header::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--red);
+}
+
+.section-header--rainbow::after {
+  background: linear-gradient(to right, #ff4b4b, #ffa421, #ffe312, #21c354, #00d4b1, #1c83e1, #803df5);
+}
+
+.section-header--none::after {
+  display: none;
+}
+
+* + .section-header {
+  margin-top: 3rem;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.media {
+  display: block;
+  width: 100%;
+  max-width: 40rem;
+  border-radius: var(--radius);
+  background: #000;
+}
+
+.media--embed {
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+.expander {
+  max-width: 40rem;
+  margin-top: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.expander__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.expander__toggle:hover {
+  color: var(--red);
+}
+
+.expander__chevron {
+  transition: transform 0.2s ease;
+}
+
+.expander__toggle[aria-expanded="true"] .expander__chevron {
+  transform: rotate(180deg);
+}
+
+.expander__body {
+  padding: 0 1rem 1rem;
+}
+
+.notice {
+  max-width: 40rem;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--blue);
+  border-radius: var(--radius);
+  background: rgba(77, 163, 255, 0.1);
+}
+
+.notice--success {
+  border-color: var(--green);
+  background: rgba(4, 170, 109, 0.12);
+}
+
+.notice--error {
+  border-color: var(--red);
+  background: rgba(255, 75, 75, 0.12);
+}
+
+/* ==========================================================================
+   Pages
+   ========================================================================== */
+
+/* Home */
+.intro {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.intro__fact {
+  font-weight: 600;
+}
+
+.intro__photo {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+@media (max-width: 800px) {
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .skills {
+    grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  }
+}
+
+/* Projects */
+.project {
+  margin-top: 2.5rem;
+}
+
+.project + .project {
+  margin-top: 3.5rem;
+}
+
+/* Blog */
+.post-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.post-list__item {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-list__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.4rem;
+}
+
+.post-list__title a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.post-list__title a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+.post-list__date {
+  margin: 0 0 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.post-list__subtitle {
+  margin: 0;
+}
+
+.post-list__image {
+  flex-shrink: 0;
+  width: 10rem;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  object-fit: cover;
+}
+
+@media (max-width: 800px) {
+  .post-list__image {
+    width: 6.5rem;
+  }
+}
+
+/* A single blog post */
+.post {
+  max-width: 46rem;
+}
+
+.post img {
+  height: auto;
+  margin: 0.5rem 0 2rem;
+  border-radius: var(--radius);
+}
+
+.post h2 {
+  margin-top: 2.5rem;
+}
+
+.post__subtitle {
+  color: var(--text-muted);
+  font-size: 1.25rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: var(--text);
+}
+
+/* Contact (styles carried over from the Streamlit app's style.css) */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 40rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-input);
+  color: var(--text);
+  font: inherit;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--red);
+  outline: none;
+}
+
+.button--submit {
+  align-self: flex-start;
+  padding: 0.75rem 1.5rem;
+  border: 0;
+  background: var(--green);
+  color: #fff;
+}
+
+.button--submit:hover {
+  background: #45a049;
+  color: #fff;
+}
+
+.button--submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
