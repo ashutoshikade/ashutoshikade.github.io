@@ -49,7 +49,9 @@ Write and publish posts on Substack. The site picks them up on its own:
 
 Why not fetch the feed from the visitor's browser? Substack and Medium don't let other websites read their feeds from a browser (they send no [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) headers). Reading the feed at build time avoids that. Any RSS feed works, so moving to another platform later means changing one URL.
 
-If the feed can't be read during a deploy, the build stops on purpose and the live site keeps its previous version. If that happens on a push, re-run the workflow later.
+If the feed can't be read during a deploy, the site keeps the posts it already lists (the live site publishes them at `/generated/blog-posts.json` for this) and everything else still goes live. The run's summary page on the Actions tab shows a warning. Only if that copy can't be read either does the build stop, leaving the live site as it was.
+
+Substack's `*.substack.com` addresses currently refuse feed requests from GitHub's servers (Cloudflare answers with a 403 "Just a moment" challenge), so its posts can't be picked up from there. Medium's feeds aren't blocked.
 
 ## Contact form
 
