@@ -9,12 +9,20 @@
 // "predev" and "prebuild" in package.json). On GitHub, the deploy workflow
 // also runs every few hours, which is how new posts reach the site without
 // anyone pushing code.
+//
+// If the feed can't be read, the site keeps the posts it already lists: it
+// publishes a copy at /generated/blog-posts.json for exactly this. That way a
+// feed outage doesn't empty the Blog page, or hold up other changes such as a
+// new photo.
 
 import { mkdir, writeFile } from "node:fs/promises";
 import { XMLParser } from "fast-xml-parser";
 import siteConfig from "../site.config.js";
 
 const OUTPUT_FILE = new URL("../src/generated/blog-posts.json", import.meta.url);
+// The copy the live site serves, read back by the next deploy if the feed fails.
+const PUBLISHED_FILE = new URL("../public/generated/blog-posts.json", import.meta.url);
+const PUBLISHED_URL = `${siteConfig.url}/generated/blog-posts.json`;
 const { feedUrl, maxPosts } = siteConfig.blog;
 
 async function fetchPosts() {
@@ -61,6 +69,20 @@ function textOf(value) {
   return text.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
 
+// The posts the live site lists right now.
+async function postsOnLiveSite() {
+  const response = await fetch(PUBLISHED_URL, { signal: AbortSignal.timeout(20_000) });
+  // No copy yet: the live site was built before this file existed.
+  if (response.status === 404) return [];
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return response.json();
+}
+
+// On GitHub Actions, "::warning::" puts the message on the run's summary page.
+function warn(message) {
+  console.warn(process.env.GITHUB_ACTIONS ? `::warning::${message}` : message);
+}
+
 function excerpt(text, maxLength = 200) {
   if (text.length <= maxLength) return text;
   return text.slice(0, text.lastIndexOf(" ", maxLength)) + "…";
@@ -72,16 +94,26 @@ if (feedUrl) {
     posts = await fetchPosts();
     console.log(`Fetched ${posts.length} blog posts from ${feedUrl}`);
   } catch (error) {
-    // On GitHub Actions (which sets CI=true), stop the build: the live site
-    // then keeps its last good version instead of losing its post list.
-    // Locally, carry on so `npm run dev` still works offline.
-    if (process.env.CI) {
-      console.error(`Could not read the blog feed ${feedUrl}: ${error.message}`);
-      process.exit(1);
+    // Locally, carry on without them so `npm run dev` still works offline.
+    // On GitHub Actions (which sets CI=true), keep what the live site lists.
+    if (!process.env.CI) {
+      console.warn(`Could not read the blog feed (${error.message}); showing earlier posts only.`);
+    } else {
+      try {
+        posts = await postsOnLiveSite();
+        warn(`Could not read the blog feed ${feedUrl} (${error.message}); keeping the ${posts.length} posts the live site lists.`);
+      } catch (liveError) {
+        // Without either list, stop the build: the live site then keeps its
+        // last good version instead of losing its post list.
+        console.error(`Could not read the blog feed ${feedUrl} (${error.message}) or the live site's copy (${liveError.message})`);
+        process.exit(1);
+      }
     }
-    console.warn(`Could not read the blog feed (${error.message}); showing earlier posts only.`);
   }
 }
 
-await mkdir(new URL(".", OUTPUT_FILE), { recursive: true });
-await writeFile(OUTPUT_FILE, JSON.stringify(posts, null, 2) + "\n");
+const json = JSON.stringify(posts, null, 2) + "\n";
+for (const file of [OUTPUT_FILE, PUBLISHED_FILE]) {
+  await mkdir(new URL(".", file), { recursive: true });
+  await writeFile(file, json);
+}
