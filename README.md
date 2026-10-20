@@ -31,7 +31,9 @@ Pushing to `main` publishes the site in about a minute. Watch it on the repo's *
 
 Use Safari on github.com. If a button below is missing, tap **aA → Request Desktop Website**.
 
-**New photo:** open `github.com/ashutoshikade/ashutoshikade.github.io/tree/main/profile/photos` → **Add file → Upload files** → pick the photo (full size is fine, HEIC included) → **Commit changes**. The site uses the most recently uploaded photo, resizes it, and removes its location data. The link-preview image updates too.
+**New photo:** open `github.com/ashutoshikade/ashutoshikade.github.io/tree/main/profile/photos` → **Add file → Upload files** → pick the photo (full size is fine, HEIC included) → **Commit changes**. The site uses the most recently uploaded photo and resizes it. The link-preview image updates too.
+
+First remove the photo's location: in the Photos app, open it, swipe up, tap **Adjust** under the map → **No Location**. iPhones save where each photo was taken inside the file. The site's copies drop it, but the file you upload is public on GitHub as-is.
 
 **New bio:** open `profile/bio.txt` → tap the pencil (**Edit**) → paste your text (for example, your LinkedIn About) → **Commit changes**.
 

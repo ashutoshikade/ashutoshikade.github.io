@@ -9,7 +9,8 @@
 // wins, and the old ones can stay or be deleted.
 //
 // The web copies drop the photo's metadata, including the GPS location that
-// iPhones record. The original in profile/photos/ is never changed.
+// iPhones record. The original in profile/photos/ is never changed, and it's
+// public on GitHub, so remove the location before uploading (see README.md).
 
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
