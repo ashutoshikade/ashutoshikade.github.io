@@ -3,8 +3,9 @@ node_modules
 dist
 *.local
 
-# Written by scripts/fetch-blog-posts.js on every dev/build run
+# Written by scripts/fetch-blog-posts.js and scripts/prepare-profile-photo.js on every dev/build run
 src/generated/
+public/generated/
 
 # The old Streamlit app (kept locally for reference only)
 streamlit_portfolio/

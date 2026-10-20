@@ -19,11 +19,23 @@ npm run lint     # checks the code for common mistakes
 | To change…                                      | Edit                                     |
 | ----------------------------------------------- | ---------------------------------------- |
 | Social handles, blog feed, contact form key     | `site.config.js` (all settings live here) |
-| Bio, skills, projects, earlier blog posts       | `src/content.js`                         |
-| Photo, images, video                            | `public/` (served as-is at the site root) |
+| Your bio (the Home page intro)                  | `profile/bio.txt` (blank line = new paragraph) |
+| Your photo                                      | upload a new one into `profile/photos/` (the newest wins) |
+| Skills, projects, location, earlier blog posts  | `src/content.js`                         |
+| Other images, video                             | `public/` (served as-is at the site root) |
 | Colours, fonts, spacing                         | the variables at the top of `src/index.css` |
 
 Pushing to `main` publishes the site in about a minute. Watch it on the repo's **Actions** tab.
+
+## Updating from your iPhone
+
+Use Safari on github.com. If a button below is missing, tap **aA → Request Desktop Website**.
+
+**New photo:** open `github.com/ashutoshikade/ashutoshikade.github.io/tree/main/profile/photos` → **Add file → Upload files** → pick the photo (full size is fine, HEIC included) → **Commit changes**. The site uses the most recently uploaded photo, resizes it, and removes its location data. The link-preview image updates too.
+
+**New bio:** open `profile/bio.txt` → tap the pencil (**Edit**) → paste your text (for example, your LinkedIn About) → **Commit changes**.
+
+Either way the site updates in about two minutes. LinkedIn caches link previews for a few days; to refresh it sooner, paste the site URL into [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/).
 
 ## How the blog works
 
@@ -45,12 +57,16 @@ The form posts to [Web3Forms](https://web3forms.com), which emails each message 
 
 ```
 site.config.js            all settings (handles, feed, form key)
+profile/
+  bio.txt                 the Home page intro
+  photos/                 your photos; the newest is used on the site
 index.html                the one HTML page; React fills in <div id="root">
 vite.config.js            build config + adds link-preview <meta> tags
 public/                   static files: images, video, favicon
-scripts/
-  fetch-blog-posts.js     reads the RSS feed before each dev/build run
-  copy-spa-routes.js      makes /projects etc. work when opened directly
+scripts/                  run before each dev/build (`npm run generate`)
+  fetch-blog-posts.js     reads the RSS feed
+  prepare-profile-photo.js  makes the web-sized photo + link-preview image
+  copy-spa-routes.js      after the build: makes /projects etc. work when opened directly
 src/
   main.jsx                entry point: starts React and the router
   App.jsx                 which URL shows which page
@@ -97,6 +113,7 @@ src/
 ### Small exercises
 
 - Add a skill in `src/content.js` and watch the page update while `npm run dev` is running.
+- Read how `src/pages/Home.jsx` turns `profile/bio.txt` into paragraphs (the `?raw` import).
 - Give each project an optional `year` and show it under the title.
 - Make the Expander open by default with a new `defaultOpen` prop.
 - Add an "Experience" page: a file in `src/pages/`, a route in `App.jsx`, a link in `Sidebar.jsx`, and its URL in `scripts/copy-spa-routes.js`.

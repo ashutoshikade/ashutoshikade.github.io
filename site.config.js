@@ -20,7 +20,7 @@ const siteConfig = {
   social: {
     facebook: "ashutoshikade",
     instagram: "ashutoshikade",
-    x: "", // TODO: your new X/Twitter handle, without the @
+    x: "absurd_ikade",
     github: "ashutoshikade",
     linkedin: "ashutoshikade",
   },
@@ -31,10 +31,10 @@ const siteConfig = {
     //   Medium:   "https://medium.com/feed/@<your-username>"
     // The GitHub Action re-reads this feed every few hours and republishes
     // the site, so new posts appear here without you pushing anything.
-    feedUrl: "",
+    feedUrl: "https://ashutoshikade.substack.com/feed",
     // Where the "Subscribe" button on the Blog page points ("" hides it).
     // Usually your Substack home page, e.g. "https://<your-publication>.substack.com".
-    subscribeUrl: "",
+    subscribeUrl: "https://ashutoshikade.substack.com",
     // How many of the latest feed posts to show.
     maxPosts: 20,
   },
@@ -43,7 +43,7 @@ const siteConfig = {
     // Free access key from https://web3forms.com: enter your email and they
     // email you a key. Paste it here. It's public by design: all it can do
     // is deliver form messages to your inbox, so it's safe in this file.
-    web3formsAccessKey: "",
+    web3formsAccessKey: "0bc2d4e2-cd0b-482e-abba-1fc3bfecc34e",
   },
 };
 
