@@ -1,5 +1,7 @@
-I am Ashutosh Ekade. I am currently enrolled in the Master of Financial Engineering program at UCLA Anderson. I graduated from IIT Kharagpur in 2019 after which I worked as a Machine Learning Engineer for over four years, developing ML solutions for a Fintech at scale. My core competencies include Python, Machine Learning Research & Development, NLP and Quantitative Finance.
+Hey there!
 
-I have worked on developing and maintaining AI products such as Recommender Systems, Information Retrieval, Question-Answering Systems and Chatbots. Check out my projects section to know more!
+I’m a Quant Machine Learning Engineer with 6+ years of experience building ML systems that run in production, from risk analytics to agentic AI for investment research. Most recently, I architected the AI layer at Chantico, where LLM agents explain macro models and asset-allocation decisions in plain language.
 
-I firmly believe that Generative AI will transform Finance, and I'm passionate about playing an active role in this disruptive change.
+I firmly believe Generative AI will transform finance, and I’m passionate about playing an active role in that change.
+
+Outside work, I tinker with code, hike and run. On the blog, I turn what we learn in academia into practical, reproducible code and write up the engineering behind it. Expect some occasional hobby projects too.
